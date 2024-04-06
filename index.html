@@ -14,6 +14,39 @@
     <link rel="stylesheet" href="https://unpkg.com/vue-simple-suggest/dist/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.0/dist/css/bulma-extensions.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script>
+  (function () {
+    "use strict";
+
+    var wait = 3000,
+        standby = true,
+        command = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
+        length = command.length,
+        index = 0,
+        timer = null;
+
+    document.addEventListener("keydown", function (ev) {
+      clearTimeout(timer);
+
+      if (standby && ev.keyCode === command[index]) {
+        index++;
+
+        if (index >= length) {
+          standby = false;
+          index = 0;
+          window.location.href = "https://lib-finder.net/shinobugaoka/";
+          standby = true;
+        } else {
+          timer = setTimeout(function () {
+            index = 0;
+          }, wait);
+        }
+      } else {
+        index = 0;
+      }
+    });
+  })();
+</script>
 </head>
 
 <body>
@@ -178,7 +211,12 @@
                 </div>
             </div>
         </section>
-
+<input type="text" id="keyCode" style="display: none;">
+<script>
+document.addEventListener("keydown", function (ev) {
+document.getElementById("keyCode").value = ev.keyCode;
+});
+</script>
 </body>
 
 <script>
